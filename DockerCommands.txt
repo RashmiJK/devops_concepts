@@ -1,0 +1,4 @@
+1. Format string for vertical display of container list -
+export FORMAT="\nID\t{{.ID}}\nIMAGE\t{{.Image}}\nCOMMAND\t{{.Command}}\nNAMES\t{{.Names}}\nPORTS\t{{.Ports}}\nSTATUS\t{{.Status}}\nCREATED\t{{.CreatedAt}}\n"
+
+
