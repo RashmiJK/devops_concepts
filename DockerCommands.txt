@@ -2,3 +2,6 @@
 export FORMAT="\nID\t{{.ID}}\nIMAGE\t{{.Image}}\nCOMMAND\t{{.Command}}\nNAMES\t{{.Names}}\nPORTS\t{{.Ports}}\nSTATUS\t{{.Status}}\nCREATED\t{{.CreatedAt}}\n"
 
 
+2. docker pull
+   docker run
+   docker ps
