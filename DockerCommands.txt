@@ -1,7 +1,96 @@
+What is docker -
+A self-contained sealed unit of software
+A self-suffcient runtime for containers
+Contains everything required to run the contained
+All the code, configs, dependencies, processes, networking all included within
+It lets you be cross-platform
+
+
 1. Format string for vertical display of container list -
 export FORMAT="\nID\t{{.ID}}\nIMAGE\t{{.Image}}\nCOMMAND\t{{.Command}}\nNAMES\t{{.Names}}\nPORTS\t{{.Ports}}\nSTATUS\t{{.Status}}\nCREATED\t{{.CreatedAt}}\n"
 
+2. Images vs Containers - Image is a package, whereas container is its running/runtime instance/environment
+   
+3. docker images : list images  
+   docker rmi <image name> : remove
 
-2. docker pull
-   docker run
-   docker ps
+4. docker ps : list running containers
+   docker ps -a : list running and stopped containers
+
+5. docker pull - 
+   
+6. docker run -ti : ti stands for terminal interactive
+   docker run 
+      -d (detached mode), : can attach later. Again can detach and leave the container running by using key combinations ctrl-p ctrl-q
+      -p6000:6379, 
+      --name (takes images as the argument and creates a container)
+      -e for creating environment variables
+   docker run -p6000:6379 (binding)
+   docker rm <container_id> : removes the container. Note that a running container cannot be removed. 
+   docker kill <container name/id> : A container can be killed and then removed.
+   docker container prune : removes all stopped container
+   docker run --rm : delete this container when it exits
+      e.g : docker run --rm -ti sleep 5 : sleep for 5 seconds and exit the container
+   docker run -ti ubuntu bash -c "sleep 3; echo all done" : shell sleeps for 3 seconds when done, echoes the text before finishing it
+   
+7. docker start
+   docker stop and then docker rm - deletes a container
+
+8. docker commit : takes the stopped container and creates image
+   docker run and docker commit are kind of inverse operation. Docker run takes image and turns it into container. Docker commit takes the container and turns it into images.
+
+9. docker tag : give name to docker images
+   after an image is created using docker commit, docker tag can be used to assign a name to the imagee.g: docker tag <image id assigned during creation> <new_name>
+   docker commit and tag can also be combined into one commande.g: docker commit <container_name> <new_image_name>
+
+10. Resource constraints 
+    memory
+    e.g: docker run --memory maximum-allowed-memory image-name command
+    docker run --cpu-shares : relative to other containers
+    docker run --cpu-quota : to limit it in general
+
+11. docker start & stop (deals with the already created container i.e to restart the stopped container)
+
+12. docker logs <contianer-id/contianer name>
+
+13. docker exec -it <container id/container name> /bin/bash (interactive terminal)
+   e.g: docker exec -ti <container name or id> bash : connect to the already running container and start a new process in it.
+   when execd process is exited, it will not terminate main container running terminal or attached terminal, but the other way is true.
+
+14. Docker network
+      docker network create <network name>
+      docker network ls
+
+15. Docker compose
+   yaml
+   structured way to contain very normal commands docke commands
+   command - docker-compose -f mongo.yaml up
+               docker-compose -f mongo.yaml down - to stop and remove all the containers and network
+
+16. No data persitance in docker containers. Once restarted, the data is lost.
+
+17. Dockerfile - is a blueprint for build docker images
+      refer syntax of a Dockerfile
+
+18. docker build -t <name e.g my-app:1.0> <directory of dockerfile>
+
+19. Docker registry
+
+20. Docker Volumes
+   3 types
+   named volumes
+
+
+21. Two ways I had used docker in my work earlier
+      Docker for developers - IIP required 2 or sometimes 3 partion code to be rebuilt
+                              QNX partition (GP cluster code for Qualcomm solution)
+                              Android partition (for headunit/entertainement)
+
+                              This was a complex system.
+                              Had to be built on oracle virtual box. Iternally we called it as XDE, stands for xross developmenet environment
+                              Virtual machine bringup was through vagrant scripts
+                              Once VM was up, we had to pull scripts that issued docker commands to bringup the necessary container inside which code developement was takencare
+
+      Docker for integration - Continuous integration in Jenkins on the server side issued docker commands to rebuild the system on pull-request
+
+22. Docker containers can be put on to a network
